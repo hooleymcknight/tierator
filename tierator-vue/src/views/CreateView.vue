@@ -51,7 +51,6 @@
             let img = new Image()
             img.src = dataUrl
             $this.exportedImageSrc = img.src
-            console.log($this.exportedImageSrc)
             $this.exportModalShown = true
           })
           .catch(function (error) {

@@ -4,6 +4,8 @@
 # images
 /images
 
+*.code-workspace
+
 # Logs
 logs
 *.log

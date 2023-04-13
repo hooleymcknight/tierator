@@ -34,7 +34,7 @@
     margin: 10px;
     width: 80px;
     height: 80px;
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     align-items: center;
     box-shadow: 1px 1px 4px 1px #333;
