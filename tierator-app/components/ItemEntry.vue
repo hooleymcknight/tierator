@@ -1,22 +1,22 @@
 <script setup>
-defineProps({
-  name: {
-    type: String,
-    required: true
-  },
-  imgSrc: {
-    type: String,
-    required: true
+  defineProps({
+    name: {
+      type: String,
+      required: true
+    },
+    imgSrc: {
+      type: String,
+      required: true
+    }
+  })
+
+  function drag(e) {
+    e.dataTransfer.setData('text', e.target.closest('.item-entry').id)
   }
-})
 
-function drag(e) {
-  e.dataTransfer.setData('text', e.target.closest('.item-entry').id)
-}
-
-function deleteEntry(e) {
-  e.target.closest('.item-entry').remove()
-}
+  function deleteEntry(e) {
+    e.target.closest('.item-entry').remove()
+  }
 
 </script>
 

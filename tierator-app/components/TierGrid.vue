@@ -20,7 +20,7 @@ function drop(e) {
 </script>
 
 <template>
-  <div class="tier-grid">
+  <div class="tier-grid" id="tier-grid">
     <table>
       <colgroup width="80px"></colgroup>
       <colgroup width="580px"></colgroup>

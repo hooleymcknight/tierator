@@ -1,26 +1,35 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-</script>
+@import './base.css';
 
-<template>
-  <header>
-    <RouterLink to="/" class="main-logo">
-      <img alt="Tierator logo" class="logo" src="@/assets/tierator-logo.png" height="60" />
-    </RouterLink>
+#app {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
 
-    <nav>
-      <RouterLink to="/create">Create</RouterLink>
-      <RouterLink to="/browse">Browse</RouterLink>
-    </nav>
-  </header>
+main {
+  padding-top: 40px;
+}
 
-  <RouterView />
-</template>
+a,
+.green {
+  text-decoration: none;
+  color: #4f1665;
+  transition: 0.4s;
+}
 
-<style scoped>
+body {
+  background: #fbf1ff;
+}
+
+button {
+  font-family: 'Poppins', sans-serif;
+}
+
 header {
-  line-height: 1.5;
-  max-height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
 }
 
 .logo {
@@ -79,4 +88,13 @@ nav a:first-of-type {
     margin-top: 0;
   }
 }
-</style>
+
+@media (hover: hover) {
+  a:not(.main-logo):hover {
+    background-color: rgba(79, 22, 101, 0.2)
+  }
+}
+
+@media (min-width: 1024px) {
+  
+}

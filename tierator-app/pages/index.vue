@@ -9,6 +9,13 @@
   </main>
 </template>
 
+<script>
+  export default {
+    name: "IndexPage",
+    components: { TierGrid }
+}
+</script>
+
 <style scoped>
   main {
     margin: 0 auto;
