@@ -9,8 +9,15 @@
     </RouterLink>
 
     <nav>
-      <RouterLink to="/create">Create</RouterLink>
-      <RouterLink to="/browse">Browse</RouterLink>
+      <RouterLink to="/create">
+        <span>Create</span>
+        <font-awesome-icon icon="fa-solid fa-plus" />
+      </RouterLink>
+
+      <RouterLink to="/browse">
+        <span>Browse</span>
+        <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+      </RouterLink>
     </nav>
   </header>
 
@@ -53,30 +60,63 @@ nav a:first-of-type {
   border: 0;
 }
 
-@media (min-width: 1024px) {
+header {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  width: calc(100vw - 20px);
+}
+
+.logo {
+  margin: 0 2rem 0 0;
+}
+
+header .wrapper {
+  display: flex;
+  place-items: flex-start;
+  flex-wrap: wrap;
+}
+
+nav {
+  text-align: left;
+  font-size: 1rem;
+
+  padding: 1rem 0;
+  margin-top: 0;
+}
+
+nav a svg {
+  display: none;
+}
+
+@media (max-width: 830px) {
+  header > a {
+    display: flex;
+    align-items: center;
+  }
+  header a img {
+    max-height: 40px;
+  }
+}
+
+@media (max-width: 767px) {
+  nav a span {
+    display: none;
+  }
+  nav a svg {
+    display: block;
+  }
+  nav a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
   header {
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    width: calc(100vw - 20px);
+    width: 100%;
+    margin: 0;
   }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 0;
+  header a img {
+    max-width: calc(85vw - 100px);
+    height: auto;
   }
 }
 </style>
