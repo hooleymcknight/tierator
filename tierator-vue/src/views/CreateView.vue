@@ -9,7 +9,6 @@
 
 <template>
   <main>
-    <p class="no-mobile">I'm not mobile friendly yet, I'm sorry :(</p>
     <TierGrid />
     <div class="all-entries">
       <ItemEntry v-for="entry in entries" :key="entry[0]" :name="entry[0]" :img-src="entry[1]" />
@@ -100,19 +99,6 @@
       width: 100%;
       padding-left: 10px;
       padding-right: 10px;
-    }
-    main :not(.no-mobile) {
-      /* display: none; */
-    }
-  }
-
-  .no-mobile {
-      display: none;
-    }
-
-  @media (min-width: 1024px) {
-    .no-mobile {
-      display: none;
     }
   }
 

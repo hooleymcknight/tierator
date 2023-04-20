@@ -10,5 +10,5 @@ This is currently live at [https://tierator.com/](https://tierator.com/).
 
 - submit chart functionality needs added
 - browse page needs finished
-- mobile functionality
+- mobile functionality needs some improvements...
 - possible move to NuxtJS?
