@@ -21,7 +21,7 @@
 </script>
 
 <template>
-  <div class="item-entry" :id="name.toLowerCase()" draggable="true" @dragstart="$event => drag($event)">
+  <div class="item-entry" :id="name.toLowerCase()" draggable="true" @dragstart="$event => drag($event)" tabindex="0">
     <p class="entry-name">{{ name }}</p>
     <img v-if="imgSrc.length" :src="imgSrc" :alt="name" />
     <p v-if="!imgSrc.length" class="img-standin">{{ name.charAt(0) }}</p>
@@ -89,7 +89,9 @@
     cursor: grabbing;
   }
 
-  tbody .item-entry:hover button {
+  tbody .item-entry:hover button,
+  tbody .item-entry:focus-visible button,
+  tbody .item-entry button:focus-visible {
     visibility: visible;
     opacity: 1;
   }

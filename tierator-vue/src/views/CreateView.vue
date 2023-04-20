@@ -102,13 +102,30 @@
       padding-right: 10px;
     }
     main :not(.no-mobile) {
-      display: none;
+      /* display: none; */
     }
   }
+
+  .no-mobile {
+      display: none;
+    }
 
   @media (min-width: 1024px) {
     .no-mobile {
       display: none;
+    }
+  }
+
+  @media (max-width: 767px) {
+    main {
+      padding-top: 0;
+    }
+    .all-entries {
+      padding-bottom: 40px;
+    }
+    .export-btn {
+      margin-bottom: 100px;
+      margin-top: 10px;
     }
   }
 </style>

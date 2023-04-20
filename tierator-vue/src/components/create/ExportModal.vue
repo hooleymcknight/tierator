@@ -102,7 +102,8 @@
     z-index: 2;
     cursor: pointer;
   }
-  .export-modal .close-modal:hover {
+  .export-modal .close-modal:hover,
+  .export-modal .close-modal:active {
     color: #4f1665;
   }
 
@@ -124,8 +125,24 @@
     width: fit-content;
     width: -moz-fit-content;
   }
-  .export-modal .download-btn:hover {
+  .export-modal .download-btn:hover,
+  .export-modal .download-btn:active {
     background: #fff;
     color: #4f1665;
+  }
+
+  @media (max-width: 767px) {
+    .export-modal .modal-inner {
+      width: 100%;
+      left: 0;
+      height: 100%;
+      top: 0;
+      border-radius: 0;
+    }
+
+    .export-modal img.exported {
+      max-height: 75vh;
+      width: auto;
+    }
   }
 </style>

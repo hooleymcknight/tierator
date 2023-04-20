@@ -158,7 +158,8 @@
     z-index: 2;
     cursor: pointer;
   }
-  .add-modal .close-modal:hover {
+  .add-modal .close-modal:hover,
+  .add-modal .close-modal:active {
     color: #4f1665;
   }
 
@@ -207,8 +208,19 @@
     cursor: pointer;
     margin-top: 10px;
   }
-  .add-modal .submit-btn:hover {
+  .add-modal .submit-btn:hover
+  .add-modal .submit-btn:active {
     background: #fff;
     color: #4f1665;
+  }
+
+  @media (max-width: 767px) {
+    .add-modal .modal-inner {
+      width: 100%;
+      left: 0;
+      height: 100%;
+      top: 0;
+      border-radius: 0;
+    }
   }
 </style>
