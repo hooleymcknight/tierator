@@ -35,18 +35,12 @@
 </template>
 
 <script>
-
   export default {
     name: 'AddModal',
     data () {
       return {
       }
     },
-    methods: {
-      onDownload() {
-        console.log('download clicked')
-      }
-    }
   }
 </script>
 
@@ -142,7 +136,10 @@
 
     .export-modal img.exported {
       max-height: 75vh;
+      max-width: 80vw;
       width: auto;
+      height: auto;
+      margin-left: 0;
     }
   }
 </style>

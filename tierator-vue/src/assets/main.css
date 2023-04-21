@@ -1,5 +1,9 @@
 @import './base.css';
 
+html.no-scroll {
+  overflow: hidden;
+}
+
 #app {
   margin: 0;
   padding: 0;

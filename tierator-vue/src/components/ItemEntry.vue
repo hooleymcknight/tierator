@@ -11,23 +11,55 @@
   })
 
   function drag(e) {
-    e.dataTransfer.setData('text', e.target.closest('.item-entry').id)
-  }
-
-  function deleteEntry(e) {
-    e.target.closest('.item-entry').remove()
+    if (e.type === 'dragstart') {
+      e.dataTransfer.setData('text', e.target.closest('.item-entry').id)
+    }
   }
 
 </script>
 
 <template>
-  <div class="item-entry" :id="name.toLowerCase()" draggable="true" @dragstart="$event => drag($event)" tabindex="0">
+  <div class="item-entry" :id="name.toLowerCase()" draggable="true" @dragstart="$event => drag($event)" @touchstart="$event => setDropData($event)" @touchend="$event => deposit($event)" tabindex="0">
     <p class="entry-name">{{ name }}</p>
     <img v-if="imgSrc.length" :src="imgSrc" :alt="name" />
     <p v-if="!imgSrc.length" class="img-standin">{{ name.charAt(0) }}</p>
     <button type="button" alt="delete" @click="$event => deleteEntry($event)">✕</button>
   </div>
 </template>
+
+<script>
+  export default {
+    name: 'ItemEntry',
+    data () {
+      return {
+        dropData: null,
+      }
+    },
+    methods: {
+      deleteEntry(e) {
+        e.target.closest('.item-entry').remove()
+      },
+      setDropData(e) {
+        // I shouldnt have to do this :(
+        if (e.target.type === 'button') {
+          this.deleteEntry(e)
+          return
+        }
+        document.documentElement.classList.add('no-scroll')
+        this.dropData = e.target.closest('.item-entry').id
+      },
+      deposit(e) {
+        const X = e.changedTouches[0].clientX
+        const Y = e.changedTouches[0].clientY
+        const row = document.elementFromPoint(X, Y).closest('tr')
+        if (row) {
+          row.querySelector('td').appendChild(document.getElementById(this.dropData))
+        }
+        document.documentElement.classList.remove('no-scroll')
+      }
+    }
+  }
+</script>
 
 <style scoped>
   .item-entry {

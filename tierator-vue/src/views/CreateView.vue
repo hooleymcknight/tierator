@@ -9,9 +9,9 @@
 
 <template>
   <main>
-    <TierGrid />
+    <TierGrid :dropData="droppingData" />
     <div class="all-entries">
-      <ItemEntry v-for="entry in entries" :key="entry[0]" :name="entry[0]" :img-src="entry[1]" />
+      <ItemEntry v-for="entry in entries" :key="entry[0]" :name="entry[0]" :img-src="entry[1]" @dropping="$event => setDroppingData($event)" />
     </div>
 
     <button type="button" alt="export tier" class="export-btn" @click="exportTier()">Export</button>
@@ -32,32 +32,53 @@
         exportModalShown: false,
         entries: [],
         exportedImageSrc: '',
+        droppingData: null,
       }
     },
     methods: {
       fireModal(input) {
+        if (input) {
+          document.documentElement.classList.add('no-scroll')
+        }
         this.modalShown = input
       },
       addEntry(e) {
         this.entries.push(e)
+        document.documentElement.classList.remove('no-scroll')
         this.modalShown = false
       },
       exportTier() {
         const tier = document.getElementById('tier-grid')
+
+        // set export dimensions temporarily
+        tier.classList.add('exporting')
+
+        // no scroll
+        document.documentElement.classList.add('no-scroll')
+
+        // convert to a png
         const $this = this
         domtoimage.toPng(tier)
           .then(function (dataUrl) {
             let img = new Image()
             img.src = dataUrl
+            // undo the export dimensions
+            tier.classList.remove('exporting')
             $this.exportedImageSrc = img.src
             $this.exportModalShown = true
           })
           .catch(function (error) {
+            // undo the export dimensions
+            tier.classList.remove('exporting')
             console.error('oopsie', error)
           })
       },
       closeExportModal() {
+        document.documentElement.classList.remove('no-scroll')
         this.exportModalShown = false
+      },
+      setDroppingData(e) {
+        this.droppingData = e
       }
     }
   }

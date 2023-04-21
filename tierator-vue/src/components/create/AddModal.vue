@@ -7,11 +7,7 @@
     }
   })
 
-  const emit = defineEmits(['openModal', 'newEntry'])
-
-  function closeModal() {
-    emit('openModal', false)
-  }
+  defineEmits(['openModal', 'newEntry'])
 </script>
 
 <template>
@@ -21,7 +17,7 @@
     <div class="modal-inner">
       <button type="button" alt="close modal" class="close-modal" @click="closeModal()">✕</button>
       <h2>Add New Tier Entry</h2>
-      <form :has-error="formError" :img-type-error="imgTypeError" :img-size-error="imgSizeError">
+      <form id="add-form" :has-error="formError" :img-type-error="imgTypeError" :img-size-error="imgSizeError">
         <div class="form-field">
           <label for="entry-name">Entry Name:</label>
           <input type="text" id="entry-name" name="entry-name" @input="onFormChange()">
@@ -32,7 +28,7 @@
           <label for="entry-image">Entry image: <span class="optional">(optional)</span></label>
           <input type="file" accept="image/*" id="entry-image" name="entry-image" @change="$event => onFileSelected($event)">
           <p class="error-message" error-type="img-type">Only images can be uploaded here.</p>
-          <p class="error-message" error-type="img-size">Please limit your image to 250KB (think like 500x500 pixels).</p>
+          <p class="error-message" error-type="img-size">Please limit your image to 250KB (think like 500x500 pixels). This image is: <span class="img-size"></span></p>
         </div>
 
         <button type="submit" alt="submit entry" class="submit-btn" @click="$event => onSubmit($event)">Add it!</button>
@@ -55,6 +51,11 @@
       }
     },
     methods: {
+      closeModal() {
+        this.clearForm()
+        document.documentElement.classList.remove('no-scroll')
+        this.$emit('openModal', false)
+      },
       onFileSelected(e) {
         this.selectedFile = e.target.files[0]
         this.imgTypeError = false
@@ -63,9 +64,8 @@
       onFormChange() {
         this.formError = false
       },
-      clearForm(e) {
-        const form = e.target.closest('form')
-        form.reset()
+      clearForm() {
+        document.querySelector('#add-form').reset()
       },
       onSubmit(e) {
         e.preventDefault()
@@ -87,6 +87,7 @@
 
           if (this.selectedFile.size > 250000) {
             // reject image bc of size
+            document.querySelector('.img-size').innerText = `${this.selectedFile.size / 1000} KB`
             this.imgSizeError = true
             return
           }
@@ -94,17 +95,16 @@
           const fd = new FormData()
           fd.append('image', this.selectedFile, this.selectedFile.name)
           axios.post('https://us-central1-tierator.cloudfunctions.net/uploadFile', fd)
-            .then(res => {
-              console.log(res)
+            .then(() => {
               // add the image src to an object to spit back out
               this.$emit('newEntry', [entryName, `https://firebasestorage.googleapis.com/v0/b/tierator.appspot.com/o/${this.selectedFile.name}?alt=media`])
-              this.clearForm(e)
+              this.clearForm()
             })
         }
         else {
           // return only the name and an empty image path
           this.$emit('newEntry', [entryName, ''])
-          this.clearForm(e)
+          this.clearForm()
         }
       }
     }
@@ -112,6 +112,9 @@
 </script>
 
 <style scoped>
+.img-size-test {
+  margin-top: 50px;
+}
   .add-modal {
     position: fixed;
     top: 0;

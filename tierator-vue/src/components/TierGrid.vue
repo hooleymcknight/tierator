@@ -1,22 +1,23 @@
 <script setup>
-// defineProps({
-//   msg: {
-//     type: String,
-//     required: true
-//   }
-// })
-function allowDrop(e) {
-  e.preventDefault()
-}
+  defineProps({
+    dropData: {
+      type: Object,
+      required: false
+    }
+  })
 
-function drop(e) {
-  e.preventDefault()
-  let data = e.dataTransfer.getData('text')
-  const row = e.target.closest('tr')
-  if (row) {
-    row.querySelector('td').appendChild(document.getElementById(data))
+  function allowDrop(e) {
+    e.preventDefault()
   }
-}
+
+  function drop(e) {
+    e.preventDefault()
+    let data = e.dataTransfer.getData('text')
+    const row = e.target.closest('tr')
+    if (row) {
+      row.querySelector('td').appendChild(document.getElementById(data))
+    }
+  }
 </script>
 
 <template>
@@ -25,7 +26,7 @@ function drop(e) {
       <colgroup width="80px"></colgroup>
       <colgroup width="580px"></colgroup>
 
-      <tbody @drop="$event => drop($event)" @dragover="$event => allowDrop($event)">
+      <tbody @drop="$event => drop($event)" @dragover="$event => allowDrop($event)" :class="dropData">
         <tr class="s">
           <th>S</th>
           <td></td>
@@ -67,6 +68,13 @@ function drop(e) {
 </template>
 
 <style scoped>
+  .tier-grid.exporting colgroup[width="80px"] {
+    min-width: 80px;
+  }
+  .tier-grid.exporting colgroup[width="580px"] {
+    min-width: 580px;
+  }
+
   h1 {
     font-weight: 500;
     font-size: 2.6rem;
